@@ -92,9 +92,9 @@ def get_guessed_word(secret_word, letters_guessed):
     for letter in secret_word:
         for char in letters_guessed:
             if char == letter:
-                guess_word += char + " "
+                guess_word += char + ""
         if letter not in guess_word:
-            guess_word += "_ "
+            guess_word += "_"
          
     return guess_word
 
@@ -158,6 +158,7 @@ def hangman(secret_word):
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass" 
     guess_letters = []
+    vowels = ["a", "e", "i", "o", "u", "y"]
     num_user_guess = 6
     num_of_letter_in_word = len(secret_word)
     num_warning = 3
@@ -180,7 +181,7 @@ def hangman(secret_word):
         print("-------------------------------------------------------------")
         print("You have " + (str(num_user_guess)) +" guesses left. ")
         print("Available letters: " + letter_available)
-        num_user_guess -= 1
+
 
         user_guess = input("Please guess a letter: ")
         user_guess_lower = user_guess.lower()
@@ -202,14 +203,34 @@ def hangman(secret_word):
           guess_letters.append(user_guess_lower)
         elif user_guess_lower in guess_letters:
           print("you already guessed this letter !")
-          print("no worries i'll regive you you lost guess")
-          num_user_guess += 1
+          if num_warning > 0:
+                num_warning -= 1
+                num_user_guess += 1
+                print("You have now " + str(num_warning) + " warnings remaining")
+                if num_warning == 0:
+                    print("i warned you three times you lose a guess.")
+                    num_user_guess -= 1
+                    num_warning = 3
         else:
           print("oops sorry not this time")
+          if user_guess_lower in vowels:
+              num_user_guess -= 2
+          else:
+              num_user_guess -= 1
 
         
 
         print(get_guessed_word(secret_word, guess_letters))
+
+  
+        if get_guessed_word(secret_word, guess_letters) == str(secret_word):
+            print("YOU WON !!!!!!")
+            num_point = num_user_guess * len(secret_word)
+            break
+        elif num_user_guess == 0:
+            print("YOU LOST !!!!!")
+            print("This was the secret word : " + secret_word)
+            break
 
       
 
