@@ -116,11 +116,11 @@ def get_available_letters(letters_guessed):
 
     for letter in string.ascii_lowercase:
         letters_available.append(letter)
-        for char in letter_guessed:
+        for char in letters_guessed:
             if letter == char:
               letters_available.remove(letter)
     
-    string_letter_available = "".join(letters_available)
+    string_letter_available = "  ".join(letters_available)
     return string_letter_available
 
 #test code for the function get available letter
@@ -156,10 +156,66 @@ def hangman(secret_word):
     
     Follows the other limitations detailed in the problem write-up.
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    # FILL IN YOUR CODE HERE AND DELETE "pass" 
+    guess_letters = []
+    num_user_guess = 6
+    num_of_letter_in_word = len(secret_word)
+    num_warning = 3
 
+    print("-------------------------------------------------------------")
+    print("-------------------------------------------------------------")
+    print("-------------------------------------------------------------")
+    print("-------------------------------------------------------------")
+    print("-------------------------------------------------------------")
+    print("Welcome to the game Hangman! ")
+    print("I am thinking of a word that is " + str(num_of_letter_in_word) + " letters long.  ")
 
+    letter_available = get_available_letters(guess_letters)
+
+    while num_user_guess >= 0:
+        print("-------------------------------------------------------------")
+        print("-------------------------------------------------------------")
+        print("-------------------------------------------------------------")
+        print("-------------------------------------------------------------")
+        print("-------------------------------------------------------------")
+        print("You have " + (str(num_user_guess)) +" guesses left. ")
+        print("Available letters: " + letter_available)
+        num_user_guess -= 1
+
+        user_guess = input("Please guess a letter: ")
+        user_guess_lower = user_guess.lower()
+
+        if user_guess_lower not in letter_available:
+            print("sorry you did not enter a letter .")
+            if num_warning > 0:
+                num_warning -= 1
+                num_user_guess += 1
+                print("You have now " + str(num_warning) + " warnings remaining")
+                if num_warning == 0:
+                    print("i warned you three times you lose a guess.")
+                    num_user_guess -= 1
+                    num_warning = 3
+                
+        
+        if user_guess_lower in secret_word and user_guess_lower not in guess_letters:
+          print("Good thinking !")
+          guess_letters.append(user_guess_lower)
+        elif user_guess_lower in guess_letters:
+          print("you already guessed this letter !")
+          print("no worries i'll regive you you lost guess")
+          num_user_guess += 1
+        else:
+          print("oops sorry not this time")
+
+        
+
+        print(get_guessed_word(secret_word, guess_letters))
+
+      
+
+        
+
+        
 
 # When you've completed your hangman function, scroll down to the bottom
 # of the file and uncomment the first two lines to test
