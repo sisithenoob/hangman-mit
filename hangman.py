@@ -112,7 +112,22 @@ def get_available_letters(letters_guessed):
       yet been guessed.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    letters_available = []
+
+    for letter in string.ascii_lowercase:
+        letters_available.append(letter)
+        for char in letter_guessed:
+            if letter == char:
+              letters_available.remove(letter)
+    
+    string_letter_available = "".join(letters_available)
+    return string_letter_available
+
+#test code for the function get available letter
+#letter_guessed = ["a", "c", "e", "p"]
+#print(letter_guessed)
+#print(get_available_letters(letter_guessed))
+            
     
     
 
