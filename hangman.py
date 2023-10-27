@@ -74,9 +74,10 @@ def is_word_guessed(secret_word, letters_guessed):
     else:
         return False
 
-secret_word = "onomatope"
-letter_guessed = ["p", "k", "m" , "o", "n", "a", "e", "t"]
-print(is_word_guessed(secret_word,letter_guessed))
+#test code for the is_word_guessed function
+#secret_word = "onomatope"
+#letter_guessed = ["p", "k", "m" , "o", "n", "a", "e", "t"]
+#print(is_word_guessed(secret_word,letter_guessed))
 
 
 def get_guessed_word(secret_word, letters_guessed):
@@ -87,7 +88,20 @@ def get_guessed_word(secret_word, letters_guessed):
       which letters in secret_word have been guessed so far.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    guess_word = ""
+    for letter in secret_word:
+        for char in letters_guessed:
+            if char == letter:
+                guess_word += char + " "
+        if letter not in guess_word:
+            guess_word += "_ "
+         
+    return guess_word
+
+#test code for the function get_guessed word
+#secret_word = "apple"
+#letter_guessed = ["p","z", "r", "l"]
+#print(get_guessed_word(secret_word,letter_guessed))
 
 
 
