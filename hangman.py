@@ -124,9 +124,9 @@ def get_available_letters(letters_guessed):
     return string_letter_available
 
 #test code for the function get available letter
-#letter_guessed = ["a", "c", "e", "p"]
-#print(letter_guessed)
-#print(get_available_letters(letter_guessed))
+letter_guessed = ["a", "c", "e", "p"]
+print(letter_guessed)
+print(get_available_letters(letter_guessed))
             
     
     
@@ -171,7 +171,7 @@ def hangman(secret_word):
     print("Welcome to the game Hangman! ")
     print("I am thinking of a word that is " + str(num_of_letter_in_word) + " letters long.  ")
 
-    letter_available = get_available_letters(guess_letters)
+    
 
     while num_user_guess >= 0:
         print("-------------------------------------------------------------")
@@ -179,9 +179,10 @@ def hangman(secret_word):
         print("-------------------------------------------------------------")
         print("-------------------------------------------------------------")
         print("-------------------------------------------------------------")
+        letter_available = get_available_letters(guess_letters)
         print("You have " + (str(num_user_guess)) +" guesses left. ")
         print("Available letters: " + letter_available)
-
+        print(guess_letters)
 
         user_guess = input("Please guess a letter: ")
         user_guess_lower = user_guess.lower()
@@ -258,9 +259,27 @@ def match_with_gaps(my_word, other_word):
         False otherwise: 
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    if len(my_word) != len(other_word):
+        return False
+    
+    word_check = []
 
+    for letter in my_word:
+        for char in other_word:
+            if letter == char:
+                word_check.append(letter)
+        if letter == "_":
+            word_check.append("_")
+    
+    str_word_check = "".join(word_check)
+    
+    if my_word == str_word_check:
+        return True
+    else:
+        return False
 
+#test code for match_woth_gaps function
+#match_with_gaps("a_c", "amd")
 
 def show_possible_matches(my_word):
     '''
